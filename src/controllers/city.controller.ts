@@ -23,7 +23,7 @@ import {CityRepository} from '../repositories';
 export class CityController {
   constructor(
     @repository(CityRepository)
-    public cityRepository : CityRepository,
+    public cityRepository: CityRepository,
   ) {}
 
   @post('/cities', {
@@ -77,8 +77,13 @@ export class CityController {
     },
   })
   async find(
-    @param.query.object('filter', getFilterSchemaFor(City)) filter?: Filter<City>,
+    @param.query.object('filter', getFilterSchemaFor(City))
+    filter: Filter<City>,
   ): Promise<City[]> {
+    console.log('filter rsult');
+
+    console.log(filter);
+    filter.include = [{relation: 'regions'}];
     return this.cityRepository.find(filter);
   }
 

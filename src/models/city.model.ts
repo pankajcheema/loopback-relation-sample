@@ -25,7 +25,7 @@ export class City extends Entity {
 }
 
 export interface CityRelations {
-  // describe navigational properties here
+  regions?: CityWithRelations[];
 }
 
 export type CityWithRelations = City & CityRelations;
