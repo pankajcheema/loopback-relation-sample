@@ -19,7 +19,6 @@ import {
 } from '@loopback/rest';
 import {City} from '../models';
 import {CityRepository} from '../repositories';
-
 export class CityController {
   constructor(
     @repository(CityRepository)
@@ -76,14 +75,11 @@ export class CityController {
       },
     },
   })
-  async find(
-    @param.query.object('filter', getFilterSchemaFor(City))
-    filter: Filter<City>,
-  ): Promise<City[]> {
-    console.log('filter rsult');
+  async find(): Promise<City[]> {
+    const filter: Filter<City> = {
+      include: [{relation: 'regions'}],
+    };
 
-    console.log(filter);
-    filter.include = [{relation: 'regions'}];
     return this.cityRepository.find(filter);
   }
 
